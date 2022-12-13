@@ -1,0 +1,53 @@
+<%- include('partials/header') %>
+   
+     
+    <!--====form section start====-->
+    <div style="margin-right:30px" class="d-flex flex-row-reverse">
+        <a class="btn btn-warning" onclick="opend()">Download report <i class="fa fa-file "  aria-hidden="true"></i>  </a>
+
+    </div>
+    <div style="padding:0px 20px 0px 20px" >
+    <% 
+    allReports.forEach((element, index)=> { %>
+    <div id="printTable" style="margin-top: 10px;" class="container-fluid summary-report-table col-md jumbotron border border-2" >
+       
+       
+        <h4 style=" font-weight:bold;text-align:center"> <%= title %> </h4>
+        <div class="d-flex justify-content-between">
+            <h5>Topic: <%= element.Title %> </h5>
+            
+        </div>
+        <div class="d-flex  flex-row">
+            <h5 style="margin-right:10px">Date: <%= element.Date %></h5>
+            <h5>Time: <%= element.Time %></h5>
+        </div>
+
+     
+        
+            <table border="1" class="table table-dark table-bordered table-data" cellspacing="0" style="width:60%">
+              <tr>
+                <th>Temp in degree Celsius</th>
+                <th><%= element.Temp_c  %>&#8451;</th>
+              </tr>
+              <tr>
+                <th>Temp in Fahrenheit</th>
+                <th><%= element.Temp_f  %>&#8457;</th>
+              </tr>
+              <tr>
+                <th>Humidity </th>
+                <th><%= element.Hum  %>%</th>
+              </tr>
+              <tr>
+                <th>Heat Index in degree Celsius</th>
+                <th><%= element.HI_C  %>&#8451;</th>
+              </tr>
+              <tr>
+                <th>Heat Index in Fahrenheit</th>
+                <th><%= element.HI_F  %>&#8457;</th>
+              </tr>
+                </table>
+            </div>
+            <% }); %>
+        </div>
+
+    <%- include('partials/footer') %>

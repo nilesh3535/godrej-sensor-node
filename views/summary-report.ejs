@@ -1,0 +1,91 @@
+<%- include('partials/header') %>
+
+<div class="d-flex flex-row-reverse">
+
+	<a class="btn btn-success d-flex " style="margin-right:10px" href="/graph-reports">Show Graph <i class="fa fa-bar-chart "  aria-hidden="true"></i>  </a>
+	<a class="btn btn-warning d-flex " style="margin-right:10px" onclick="openf()">Download report <i class="fa fa-file "  aria-hidden="true"></i>  </a>
+
+  </div>
+	<div id="printFTable" class="container-fluid summary-report-table col-md jumbotron">
+		<div class="d-flex flex-row justify-content-around">
+			
+		<h3>
+			<%= title %>
+		</h3>
+		<h3>Total : <%= allReports.length %> %>
+		</h3>
+		
+		</div>	
+		
+
+		<%  allReports.forEach(element=> {
+			
+			});
+			%>
+
+		
+
+			<table border="1" class="table table-dark table-hover table-sm table-bordered table-responsive table-dataS">
+
+				<tr style="height: 40px;border-bottom:1px solid white;">
+					<th class="text-center">Sr</th>
+					<th class="text-center">Topic</th>
+					<th class="text-center">Date</th>
+					<th class="text-center">Time</th>
+					<th class="text-center">Temp(&#8451;)</th>
+					<th class="text-center">Temp(&#8457;)</th>
+					<th class="text-center">Humidity(%)</th>
+					<th class="text-center">Heat Index(&#8451;)</th>
+					<th class="text-center">Heat Index(&#8457;)</th>
+					<th class="text-center">  Operations</th>
+				</tr>
+
+				<% 
+				allReports.forEach((element, index)=> { %>
+					<tr>
+						<td class="text-center">
+							<%= index+1 %>
+						</td>
+						<td >
+							<%= element.Topic %>
+						</td>
+						<td class="text-center">
+							<%= element.Date %>
+						</td>
+						<td class="text-center">
+							<%= element.Time	 %> 
+						</td>
+                        <td class="text-center"> 
+							<%= element.Temp_c	 %> &#8451;
+						</td>
+						<td class="text-center">
+							<%= element.Temp_f	 %>  &#8457;
+						</td>
+						<td class="text-center">
+							<%= element.Hum	 %> %
+						</td>
+						<td class="text-center">
+							<%= element.HI_C	 %>  &#8451; 
+						</td>
+						<td class="text-center">
+							<%= element.HI_F	 %>  &#8457;
+						</td>
+						
+							<td style="display:flex;justify-content:space-around">
+								 <%= element.Data %><p ><a style="color:#A8F72E" href="/detailed-report/<%=element._id%>">Show</a><i class="fa fa-eye" aria-hidden="true" style="color:#A8F72E"></i> </p>
+							</td>
+							</tr>	
+
+					<% }); %>
+					<% 
+				      if(allReports.length==0){ %>
+						<td class="text-center " colspan="10">
+						<h3>	No Today's Report found !</h3>
+						</td>
+					  <% } %>
+
+
+			</table>
+	</div>
+
+	<%- include('partials/footer') %>

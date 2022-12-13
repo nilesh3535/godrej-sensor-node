@@ -1,0 +1,81 @@
+<%- include('partials/header') %>
+   
+     
+
+    <div style="padding:0px 20px 0px 20px" >
+        <div class="border border-2">
+            <h5 style=" font-weight:bold;text-align:center;margin:15px" class="text-success"> Filter Graph Report </h5>
+        <div class="date-container container-fluid ">
+            <div class="d-flex justify-content-center">
+            <form action="/graph-between-dates" method="POST">
+              <h5>From:<input type="date" id="theDate1" name="gdate1" style="margin-left:10px;" required>
+                to
+                <input type="date" id="theDate2" name="gdate2" required>
+                <button class="btn btn-success" type="submit">Show Graph <i class="fa fa-bar-chart "  aria-hidden="true"></i></button>
+                
+              </h5>
+        
+            </form>
+        </div>
+            <div>
+            <h5 style=" font-weight:bold;margin:15px" class="text-success"> <%= titleGraph %> <%= titledate %> </h5>
+
+            </div>
+          </div>
+          <% 
+          var TimeArr=[];
+          var TempArr=[];
+          var DateArr=[];
+            
+          allReports.forEach((element, index)=> { %>
+          
+            <%
+            TempArr.push(element.Temp_c)
+            TimeArr.push(element.Time)
+            DateArr.push(element.Date)
+            %>
+            <% }); %>
+          <div class="d-flex flex-row" style="justify-content:center;align-items: center;">
+            <h4 style="">Temp in &#8451;</h4>
+            <canvas id="myChart" style="height:500px;width:100%;max-width:800px"></canvas>
+
+          </div> 
+          <h4 class="text-center" style="margin-bottom: 50px;">Time (HH:MM:SS)</h4>
+            
+          <script>
+          var xValues = ['<%=TimeArr[0]%>','<%=TimeArr[1]%>','<%=TimeArr[2]%>','<%=TimeArr[3]%>','<%=TimeArr[4]%>','<%=TimeArr[5]%>','<%=TimeArr[6]%>','<%=TimeArr[7]%>','<%=TimeArr[8]%>','<%=TimeArr[9]%>'];
+
+          var yValues = ['<%=TempArr[0]%>','<%=TempArr[1]%>','<%=TempArr[2]%>','<%=TempArr[3]%>','<%=TempArr[4]%>','<%=TempArr[5]%>','<%=TempArr[6]%>','<%=TempArr[7]%>','<%=TempArr[8]%>','<%=TempArr[9]%>'];
+          
+          new Chart("myChart", {
+            type: "line",
+            data: {
+              labels: xValues,
+              datasets: [{
+                fill: false,
+                lineTension: 0,
+                backgroundColor: "rgba(0,0,255,1.0)",
+                borderColor: "rgba(0,0,255,0.1)",
+                data: yValues,
+                
+              }]
+            },
+            options: {
+              legend: {display: false},
+              responsive: true,
+              
+              title: {
+        display: true,
+        text: '( Temp VS Time )'
+      },
+              scales: {
+                yAxes: [{ticks: {min: 2.5, max:100}}],
+              }
+              
+            }
+          });
+          </script>
+          
+    </div>
+
+    <%- include('partials/footer') %>
